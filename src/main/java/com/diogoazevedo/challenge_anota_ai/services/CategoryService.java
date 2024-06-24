@@ -7,6 +7,7 @@ import com.diogoazevedo.challenge_anota_ai.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryService {
@@ -20,6 +21,10 @@ public class CategoryService {
         Category newCategory = new Category(categoryData);
         this.categoryRepository.save(newCategory);
         return newCategory;
+    }
+
+    public Optional<Category> getById(String id) {
+        return this.categoryRepository.findById(id);
     }
 
     public List<Category> getAll() {
