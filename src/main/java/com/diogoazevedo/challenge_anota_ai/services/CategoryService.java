@@ -2,6 +2,7 @@ package com.diogoazevedo.challenge_anota_ai.services;
 
 import com.diogoazevedo.challenge_anota_ai.domain.category.Category;
 import com.diogoazevedo.challenge_anota_ai.domain.category.CategoryDTO;
+import com.diogoazevedo.challenge_anota_ai.domain.category.exceptions.CategoryNotFoundException;
 import com.diogoazevedo.challenge_anota_ai.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +24,14 @@ public class CategoryService {
 
     public List<Category> getAll() {
         return this.categoryRepository.findAll();
+    }
+
+    public Category update(String id, CategoryDTO categoryData) {
+        Category category = this.categoryRepository.findById(id)
+                .orElseThrow(CategoryNotFoundException::new);
+        if (!categoryData.title().isEmpty()) category.setTitle(categoryData.title());
+        if (!categoryData.description().isEmpty()) category.setDescription(categoryData.description());
+        this.categoryRepository.save(category);
+        return category;
     }
 }

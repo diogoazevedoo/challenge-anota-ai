@@ -3,6 +3,7 @@ package com.diogoazevedo.challenge_anota_ai.controllers;
 import com.diogoazevedo.challenge_anota_ai.domain.category.Category;
 import com.diogoazevedo.challenge_anota_ai.domain.category.CategoryDTO;
 import com.diogoazevedo.challenge_anota_ai.services.CategoryService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,5 +28,14 @@ public class CategoryController {
     public ResponseEntity<List<Category>> getAll() {
         List<Category> categories = this.categoryService.getAll();
         return ResponseEntity.ok().body(categories);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Category> update(
+            @PathVariable("id") String id,
+            @RequestBody CategoryDTO categoryData
+    ) {
+        Category updatedCategory = this.categoryService.update(id, categoryData);
+        return ResponseEntity.ok().body(updatedCategory);
     }
 }
