@@ -38,4 +38,10 @@ public class CategoryController {
         Category updatedCategory = this.categoryService.update(id, categoryData);
         return ResponseEntity.ok().body(updatedCategory);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Category> delete(@PathVariable("id") String id) {
+        this.categoryService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

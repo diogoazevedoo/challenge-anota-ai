@@ -34,4 +34,10 @@ public class CategoryService {
         this.categoryRepository.save(category);
         return category;
     }
+
+    public void delete(String id) {
+        Category category = this.categoryRepository.findById(id)
+                .orElseThrow(CategoryNotFoundException::new);
+        this.categoryRepository.delete(category);
+    }
 }
